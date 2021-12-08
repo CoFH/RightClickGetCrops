@@ -1,0 +1,30 @@
+modLoader = "javafml"
+loaderVersion = "[34,)"
+issueTrackerURL = "https://github.com/cofh/feedback"
+license = "CoFH - Don't Be A Jerk (Learn, Don't Steal)"
+
+[[mods]]
+modId = "right_click_get_crops"
+version = "${file.jarVersion}"
+displayName = "Right Click, Get Crops"
+updateJSONURL = "https://raw.github.com/cofh/version/master/right_click_get_crops/update.json"
+displayURL = "https://teamcofh.com/"
+logoFile = "logo.png"
+credits = "Team CoFH"
+authors = "King Lemming"
+description = '''
+As title. Right click, get crops. Also replants!
+'''
+[[dependencies.right_click_get_crops]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.16.5,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.right_click_get_crops]]
+modId = "forge"
+mandatory = true
+versionRange = "[36.2.0,)"
+ordering = "AFTER"
+side = "BOTH"
