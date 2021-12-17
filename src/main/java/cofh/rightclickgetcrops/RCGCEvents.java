@@ -21,7 +21,7 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
 
-@Mod.EventBusSubscriber(modid = "right_click_get_crops")
+@Mod.EventBusSubscriber (modid = "right_click_get_crops")
 public class RCGCEvents {
 
     //    @SubscribeEvent
@@ -42,7 +42,7 @@ public class RCGCEvents {
     //        }
     //    }
 
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    @SubscribeEvent (priority = EventPriority.HIGHEST)
     public static void handleRightClickBlockEvent(PlayerInteractEvent.RightClickBlock event) {
 
         World world = event.getWorld();
