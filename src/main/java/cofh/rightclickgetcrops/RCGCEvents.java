@@ -102,7 +102,38 @@ public class RCGCEvents {
                 event.setCanceled(true);
             }
         } else if (block instanceof NetherWartBlock) {
+            NetherWartBlock crop = (NetherWartBlock) block;
+            boolean seedDrop = false;
 
+            BlockPos below = pos.below();
+            BlockState belowState = world.getBlockState(below);
+            Block belowBlock = belowState.getBlock();
+
+            replant &= belowBlock.canSustainPlant(belowState, world, below, Direction.UP, crop);
+
+            if (state.getValue(NetherWartBlock.AGE) >= 3) {
+                if (!world.isClientSide) {
+                    List<ItemStack> drops = Block.getDrops(state, (ServerWorld) world, pos, null, player, player.getMainHandItem());
+                    Item seedItem = crop.getCloneItemStack(world, pos, state).getItem();
+                    for (ItemStack drop : drops) {
+                        if (replant && !seedDrop) {
+                            if (drop.getItem() == seedItem) {
+                                drop.shrink(1);
+                                seedDrop = true;
+                            }
+                        }
+                        if (!drop.isEmpty()) {
+                            InventoryHelper.dropItemStack(world, pos.getX() + .5, pos.getY() + .5, pos.getZ() + .5, drop);
+                        }
+                    }
+                    world.destroyBlock(pos, false, player);
+                    if (seedDrop) {
+                        world.setBlock(pos, crop.defaultBlockState(), 3);
+                    }
+                }
+                player.swing(Hand.MAIN_HAND);
+                event.setCanceled(true);
+            }
         }
     }
 
