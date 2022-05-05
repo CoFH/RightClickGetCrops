@@ -4,6 +4,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import java.util.ArrayList;
@@ -66,7 +67,7 @@ public class RCGCConfig {
 
     // region CONFIGURATION
     @SubscribeEvent
-    public static void configLoading(final ModConfig.Loading event) {
+    public static void configLoading(ModConfigEvent.Loading event) {
 
         switch (event.getConfig().getType()) {
             case CLIENT:
@@ -77,7 +78,7 @@ public class RCGCConfig {
     }
 
     @SubscribeEvent
-    public static void configReloading(ModConfig.Reloading event) {
+    public static void configReloading(ModConfigEvent.Reloading event) {
 
         switch (event.getConfig().getType()) {
             case CLIENT:
