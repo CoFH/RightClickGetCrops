@@ -58,7 +58,7 @@ public class RCGCEvents {
     public static void handleRightClickBlockEvent(PlayerInteractEvent.RightClickBlock event) {
 
         Level world = event.getWorld();
-        if (event.getHand() == InteractionHand.MAIN_HAND) {
+        if (event.getHand() == InteractionHand.OFF_HAND) {
             return;
         }
         BlockPos pos = event.getPos();
