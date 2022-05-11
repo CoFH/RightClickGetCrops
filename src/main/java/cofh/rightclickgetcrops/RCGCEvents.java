@@ -24,6 +24,18 @@ import java.util.List;
 @Mod.EventBusSubscriber (modid = "right_click_get_crops")
 public class RCGCEvents {
 
+    private static boolean harvestSupport = false;
+
+    public static void init() {
+
+        try {
+            Class.forName("cofh.lib.block.IHarvestable", false, ClassLoader.getSystemClassLoader());
+            harvestSupport = true;
+        } catch (ClassNotFoundException cnfe) {
+
+        }
+    }
+
     //    @SubscribeEvent
     //    public static void handleFarmlandTrampleEvent(BlockEvent.FarmlandTrampleEvent event) {
     //
@@ -61,14 +73,17 @@ public class RCGCEvents {
         boolean replant = RCGCConfig.replant.get();
 
         // IHarvestables are smart! They handle their own replanting.
-        if (block instanceof IHarvestable) {
-            IHarvestable harvestable = (IHarvestable) block;
-            if (harvestable.canHarvest(state)) {
-                harvestable.harvest(world, pos, state, player, replant);
-                player.swing(InteractionHand.MAIN_HAND);
-                event.setCanceled(true);
+        if (harvestSupport) {
+            if (block instanceof IHarvestable harvestable) {
+                if (harvestable.canHarvest(state)) {
+                    harvestable.harvest(world, pos, state, player, replant);
+                    player.swing(InteractionHand.MAIN_HAND);
+                    event.setCanceled(true);
+                    return;
+                }
             }
-        } else if (block instanceof CropBlock) {
+        }
+        if (block instanceof CropBlock) {
             CropBlock crop = (CropBlock) block;
             boolean seedDrop = false;
 

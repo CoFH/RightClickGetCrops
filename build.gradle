@@ -86,6 +86,8 @@ minecraft {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
+
+    compileOnly fg.deobf("com.teamcofh:cofh_core:${mc_version}-${cofh_core_version}")
 }
 
 signing {

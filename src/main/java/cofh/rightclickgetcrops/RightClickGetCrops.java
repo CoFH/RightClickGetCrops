@@ -8,6 +8,7 @@ public class RightClickGetCrops {
     public RightClickGetCrops() {
 
         RCGCConfig.register();
+        RCGCEvents.init();
     }
 
 }
