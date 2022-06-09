@@ -11,6 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.CocoaBlock;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.NetherWartBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -20,6 +21,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
+
+import static net.minecraft.world.level.block.HorizontalDirectionalBlock.FACING;
 
 @Mod.EventBusSubscriber (modid = "right_click_get_crops")
 public class RCGCEvents {
@@ -83,15 +86,13 @@ public class RCGCEvents {
                 }
             }
         }
-        if (block instanceof CropBlock) {
-            CropBlock crop = (CropBlock) block;
-            boolean seedDrop = false;
+        boolean seedDrop = false;
 
+        if (block instanceof CropBlock crop) {
             BlockPos below = pos.below();
             BlockState belowState = world.getBlockState(below);
-            Block belowBlock = belowState.getBlock();
 
-            replant &= belowBlock.canSustainPlant(belowState, world, below, Direction.UP, crop);
+            replant &= belowState.getBlock().canSustainPlant(belowState, world, below, Direction.UP, crop);
 
             if (crop.isMaxAge(state)) {
                 if (!world.isClientSide) {
@@ -116,15 +117,11 @@ public class RCGCEvents {
                 player.swing(InteractionHand.MAIN_HAND);
                 event.setCanceled(true);
             }
-        } else if (block instanceof NetherWartBlock) {
-            NetherWartBlock crop = (NetherWartBlock) block;
-            boolean seedDrop = false;
-
+        } else if (block instanceof NetherWartBlock crop) {
             BlockPos below = pos.below();
             BlockState belowState = world.getBlockState(below);
-            Block belowBlock = belowState.getBlock();
 
-            replant &= belowBlock.canSustainPlant(belowState, world, below, Direction.UP, crop);
+            replant &= belowState.getBlock().canSustainPlant(belowState, world, below, Direction.UP, crop);
 
             if (state.getValue(NetherWartBlock.AGE) >= 3) {
                 if (!world.isClientSide) {
@@ -144,6 +141,33 @@ public class RCGCEvents {
                     world.destroyBlock(pos, false, player);
                     if (seedDrop) {
                         world.setBlock(pos, crop.defaultBlockState(), 3);
+                    }
+                }
+                player.swing(InteractionHand.MAIN_HAND);
+                event.setCanceled(true);
+            }
+        } else if (block instanceof CocoaBlock crop) {
+            replant &= crop.canSurvive(state, world, pos);
+
+            if (state.getValue(CocoaBlock.AGE) >= 2) {
+                if (!world.isClientSide) {
+                    Direction facing = state.getValue(FACING);
+                    List<ItemStack> drops = Block.getDrops(state, (ServerLevel) world, pos, null, player, player.getMainHandItem());
+                    Item seedItem = crop.getCloneItemStack(world, pos, state).getItem();
+                    for (ItemStack drop : drops) {
+                        if (replant && !seedDrop) {
+                            if (drop.getItem() == seedItem) {
+                                drop.shrink(1);
+                                seedDrop = true;
+                            }
+                        }
+                        if (!drop.isEmpty()) {
+                            Containers.dropItemStack(world, pos.getX() + .5, pos.getY() + .5, pos.getZ() + .5, drop);
+                        }
+                    }
+                    world.destroyBlock(pos, false, player);
+                    if (seedDrop) {
+                        world.setBlock(pos, crop.defaultBlockState().setValue(FACING, facing), 3);
                     }
                 }
                 player.swing(InteractionHand.MAIN_HAND);
