@@ -19,6 +19,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
 
@@ -69,7 +70,7 @@ public class RCGCEvents {
         Block block = state.getBlock();
 
         // If Allow List and NOT in list, or Deny List and IS in list:
-        if (RCGCConfig.allowList.get() != RCGCConfig.cropList.get().contains(block.getRegistryName().toString())) {
+        if (RCGCConfig.allowList.get() != RCGCConfig.cropList.get().contains(ForgeRegistries.BLOCKS.getKey(block).toString())) {
             return;
         }
         Player player = event.getPlayer();
