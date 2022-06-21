@@ -1,6 +1,6 @@
 package cofh.rightclickgetcrops;
 
-import cofh.lib.block.IHarvestable;
+import cofh.lib.api.block.IHarvestable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -33,7 +33,7 @@ public class RCGCEvents {
     public static void init() {
 
         try {
-            Class.forName("cofh.lib.block.IHarvestable", false, RCGCEvents.class.getClassLoader());
+            Class.forName("cofh.lib.api.block.IHarvestable", false, RCGCEvents.class.getClassLoader());
             harvestSupport = true;
         } catch (ClassNotFoundException cnfe) {
 
