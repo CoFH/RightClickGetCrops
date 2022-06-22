@@ -40,24 +40,6 @@ public class RCGCEvents {
         }
     }
 
-    //    @SubscribeEvent
-    //    public static void handleFarmlandTrampleEvent(BlockEvent.FarmlandTrampleEvent event) {
-    //
-    //        if (event.isCanceled()) {
-    //            return;
-    //        }
-    //        if (!CoreConfig.improvedFeatherFalling) {
-    //            return;
-    //        }
-    //        Entity entity = event.getEntity();
-    //        if (entity instanceof LivingEntity) {
-    //            int encFeatherFalling = getMaxEquippedEnchantmentLevel((LivingEntity) entity, FALL_PROTECTION);
-    //            if (encFeatherFalling > 0) {
-    //                event.setCanceled(true);
-    //            }
-    //        }
-    //    }
-
     @SubscribeEvent (priority = EventPriority.HIGHEST)
     public static void handleRightClickBlockEvent(PlayerInteractEvent.RightClickBlock event) {
 
