@@ -25,6 +25,6 @@ side = "BOTH"
 [[dependencies.right_click_get_crops]]
 modId = "forge"
 mandatory = true
-versionRange = "[40.1.0,)"
+versionRange = "[41.0.43,)"
 ordering = "AFTER"
 side = "BOTH"

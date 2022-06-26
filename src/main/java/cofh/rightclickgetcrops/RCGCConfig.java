@@ -9,6 +9,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class RCGCConfig {
 
@@ -61,8 +62,8 @@ public class RCGCConfig {
 
     // region VARIABLES
     public static ForgeConfigSpec.ConfigValue<List<String>> cropList;
-    public static ForgeConfigSpec.BooleanValue allowList;
-    public static ForgeConfigSpec.BooleanValue replant;
+    public static Supplier<Boolean> allowList;
+    public static Supplier<Boolean> replant;
     // endregion
 
     // region CONFIGURATION
