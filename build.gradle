@@ -14,8 +14,8 @@ plugins {
     id 'maven-publish'
     id 'net.covers1624.signing' version '1.1.4'
 }
-
 apply plugin: 'net.minecraftforge.gradle'
+apply from: 'https://raw.githubusercontent.com/SizableShrimp/ForgeUpdatesRemapper/main/remapper.gradle'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -87,7 +87,7 @@ minecraft {
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
 
-    // compileOnly fg.deobf("com.teamcofh:cofh_core:${mc_version}-${cofh_core_version}")
+    compileOnly fg.deobf("com.teamcofh:cofh_core:${mc_version}-${cofh_core_version}")
 }
 
 signing {

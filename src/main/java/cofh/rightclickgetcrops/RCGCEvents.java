@@ -43,7 +43,7 @@ public class RCGCEvents {
     @SubscribeEvent (priority = EventPriority.HIGHEST)
     public static void handleRightClickBlockEvent(PlayerInteractEvent.RightClickBlock event) {
 
-        Level world = event.getWorld();
+        Level world = event.getLevel();
         if (event.getHand() == InteractionHand.OFF_HAND) {
             return;
         }
@@ -55,7 +55,7 @@ public class RCGCEvents {
         if (RCGCConfig.allowList.get() != RCGCConfig.cropList.get().contains(ForgeRegistries.BLOCKS.getKey(block).toString())) {
             return;
         }
-        Player player = event.getPlayer();
+        Player player = event.getEntity();
         boolean replant = RCGCConfig.replant.get();
 
         // IHarvestables are smart! They handle their own replanting.
