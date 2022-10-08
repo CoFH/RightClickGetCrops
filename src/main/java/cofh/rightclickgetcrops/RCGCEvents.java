@@ -32,7 +32,7 @@ public class RCGCEvents {
     public static void init() {
 
         try {
-            Class.forName("cofh.lib.block.IHarvestable", false, RCGCEvents.class.getClassLoader());
+            Class.forName("cofh.api.block.IHarvestable", false, RCGCEvents.class.getClassLoader());
             harvestSupport = true;
         } catch (ClassNotFoundException cnfe) {
 
