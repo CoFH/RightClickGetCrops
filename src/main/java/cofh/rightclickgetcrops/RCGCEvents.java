@@ -19,6 +19,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
 
@@ -32,30 +33,12 @@ public class RCGCEvents {
     public static void init() {
 
         try {
-            Class.forName("cofh.api.block.IHarvestable", false, RCGCEvents.class.getClassLoader());
+            Class.forName("cofh.lib.api.block.IHarvestable", false, RCGCEvents.class.getClassLoader());
             harvestSupport = true;
         } catch (ClassNotFoundException cnfe) {
 
         }
     }
-
-    //    @SubscribeEvent
-    //    public static void handleFarmlandTrampleEvent(BlockEvent.FarmlandTrampleEvent event) {
-    //
-    //        if (event.isCanceled()) {
-    //            return;
-    //        }
-    //        if (!CoreConfig.improvedFeatherFalling) {
-    //            return;
-    //        }
-    //        Entity entity = event.getEntity();
-    //        if (entity instanceof LivingEntity) {
-    //            int encFeatherFalling = getMaxEquippedEnchantmentLevel((LivingEntity) entity, FALL_PROTECTION);
-    //            if (encFeatherFalling > 0) {
-    //                event.setCanceled(true);
-    //            }
-    //        }
-    //    }
 
     @SubscribeEvent (priority = EventPriority.HIGHEST)
     public static void handleRightClickBlockEvent(PlayerInteractEvent.RightClickBlock event) {
@@ -69,7 +52,7 @@ public class RCGCEvents {
         Block block = state.getBlock();
 
         // If Allow List and NOT in list, or Deny List and IS in list:
-        if (RCGCConfig.allowList.get() != RCGCConfig.cropList.get().contains(block.getRegistryName().toString())) {
+        if (RCGCConfig.allowList.get() != RCGCConfig.cropList.get().contains(ForgeRegistries.BLOCKS.getKey(block).toString())) {
             return;
         }
         Player player = event.getPlayer();
