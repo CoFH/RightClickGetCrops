@@ -136,7 +136,7 @@ public class RCGCEvents {
                 if (!world.isClientSide) {
                     Direction facing = state.getValue(FACING);
                     List<ItemStack> drops = Block.getDrops(state, (ServerLevel) world, pos, null, player, player.getMainHandItem());
-                    Item seedItem = crop.getCloneItemStack(world, pos, state).getItem();
+                    Item seedItem = crop.getCloneItemStack(state, event.getHitVec(), world, pos, player).getItem();
                     for (ItemStack drop : drops) {
                         if (replant && !seedDrop) {
                             if (drop.getItem() == seedItem) {
