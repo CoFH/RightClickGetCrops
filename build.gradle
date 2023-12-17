@@ -84,8 +84,7 @@ repositories {
 dependencies {
     minecraft "net.neoforged:forge:${mc_version}-${neoforge_version}"
 
-    // compileOnly fg.deobf("com.teamcofh:cofh_core:${mc_version}-${cofh_core_version}.+")
-    compileOnly fg.deobf("com.teamcofh:cofh_core:1.19.2-${cofh_core_version}.+")
+    compileOnly fg.deobf("com.teamcofh:cofh_core:${mc_version}-${cofh_core_version}.+")
 }
 
 jar {
