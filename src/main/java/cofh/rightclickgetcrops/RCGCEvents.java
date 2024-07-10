@@ -3,6 +3,7 @@ package cofh.rightclickgetcrops;
 import cofh.lib.api.block.IHarvestable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -15,11 +16,10 @@ import net.minecraft.world.level.block.CocoaBlock;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.NetherWartBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
 import java.util.List;
 
@@ -52,7 +52,7 @@ public class RCGCEvents {
         Block block = state.getBlock();
 
         // If Allow List and NOT in list, or Deny List and IS in list:
-        if (RCGCConfig.allowList.get() != RCGCConfig.cropList.get().contains(ForgeRegistries.BLOCKS.getKey(block).toString())) {
+        if (RCGCConfig.allowList.get() != RCGCConfig.cropList.get().contains(BuiltInRegistries.BLOCK.getKey(block).toString())) {
             return;
         }
         Player player = event.getEntity();

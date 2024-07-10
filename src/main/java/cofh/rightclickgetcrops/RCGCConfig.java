@@ -1,11 +1,11 @@
 package cofh.rightclickgetcrops;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.config.ModConfigEvent;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +15,12 @@ public class RCGCConfig {
 
     private static boolean registered = false;
 
-    public static void register() {
+    public static void register(IEventBus modEventBus) {
 
         if (registered) {
             return;
         }
-        FMLJavaModLoadingContext.get().getModEventBus().register(RCGCConfig.class);
+        modEventBus.register(RCGCConfig.class);
         registered = true;
 
         genServerConfig();
@@ -33,8 +33,8 @@ public class RCGCConfig {
     }
 
     // region CONFIG SPEC
-    private static final ForgeConfigSpec.Builder SERVER_CONFIG = new ForgeConfigSpec.Builder();
-    private static ForgeConfigSpec serverSpec;
+    private static final ModConfigSpec.Builder SERVER_CONFIG = new ModConfigSpec.Builder();
+    private static ModConfigSpec serverSpec;
 
     private static void genServerConfig() {
 
@@ -61,7 +61,7 @@ public class RCGCConfig {
     // endregion
 
     // region VARIABLES
-    public static ForgeConfigSpec.ConfigValue<List<String>> cropList;
+    public static ModConfigSpec.ConfigValue<List<String>> cropList;
     public static Supplier<Boolean> allowList;
     public static Supplier<Boolean> replant;
     // endregion

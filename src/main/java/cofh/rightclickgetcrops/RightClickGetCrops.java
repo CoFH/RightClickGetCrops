@@ -1,20 +1,18 @@
 package cofh.rightclickgetcrops;
 
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 
 @Mod ("right_click_get_crops")
 public class RightClickGetCrops {
 
-    public RightClickGetCrops() {
-
-        final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    public RightClickGetCrops(ModContainer modContainer, IEventBus modEventBus) {
 
         modEventBus.addListener(this::commonSetup);
 
-        RCGCConfig.register();
+        RCGCConfig.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
